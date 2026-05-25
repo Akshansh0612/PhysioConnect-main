@@ -5,7 +5,7 @@ import authRoutes from "./routes/authRoutes.js";
 import { protect } from "./middleware/authMiddleware.js";
 import { authorizeRoles } from "./middleware/roleMiddleware.js";
 import physioRoutes from "./routes/physioRoutes.js";
-
+import appointmentRoutes from "./routes/appointmentRoutes.js";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ app.use(json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/physio", physioRoutes);
-
+app.use("/api/appointments", appointmentRoutes);
 
 app.get("/api/protected", protect, (req, res) => {
   res.json({

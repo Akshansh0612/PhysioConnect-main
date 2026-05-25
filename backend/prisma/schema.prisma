@@ -16,6 +16,10 @@ model User {
   createdAt DateTime @default(now())
 
   physioProfile  PhysioProfile?
+
+  patientAppointments Appointment[] @relation("PatientAppointments")
+
+physioAppointments  Appointment[] @relation("PhysioAppointments")
 }
 
 model PhysioProfile {
@@ -29,4 +33,18 @@ model PhysioProfile {
 
   userId          Int      @unique
   user            User     @relation(fields: [userId], references: [id])
+}
+
+model Appointment {
+  id          Int      @id @default(autoincrement())
+  date        String
+  time        String
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+
+  patientId   Int
+  patient     User     @relation("PatientAppointments", fields: [patientId], references: [id])
+
+  physioId    Int
+  physio      User     @relation("PhysioAppointments", fields: [physioId], references: [id])
 }
