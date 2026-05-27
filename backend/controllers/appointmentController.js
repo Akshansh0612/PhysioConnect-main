@@ -1,5 +1,6 @@
 import prisma from "../prisma/client.js";
 
+// BOOK APPOINTMENT
 export const bookAppointment = async (req, res) => {
   try {
     const { physioId, date, time } = req.body;
@@ -52,6 +53,38 @@ export const bookAppointment = async (req, res) => {
     res.status(201).json({
       message: "Appointment booked successfully",
       appointment,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
+// GET MY APPOINTMENTS
+export const getMyAppointments = async (req, res) => {
+  try {
+    const appointments = await prisma.appointment.findMany({
+      where: {
+        patientId: req.user.id,
+      },
+
+      include: {
+        physio: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      message: "Appointments fetched successfully",
+      appointments,
     });
   } catch (error) {
     console.log(error);
