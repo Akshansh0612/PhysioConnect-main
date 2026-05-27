@@ -118,3 +118,49 @@ export const getSinglePhysio = async (req, res) => {
     });
   }
 };
+
+export const searchPhysios = async (req, res) => {
+  try {
+    const { specialization, location } = req.query;
+
+    const physios = await prisma.physioProfile.findMany({
+      where: {
+        specialization: specialization
+          ? {
+              contains: specialization,
+              mode: "insensitive",
+            }
+          : undefined,
+
+        location: location
+          ? {
+              contains: location,
+              mode: "insensitive",
+            }
+          : undefined,
+      },
+
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      message: "Search results fetched successfully",
+      physios,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};

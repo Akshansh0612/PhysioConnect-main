@@ -20,6 +20,11 @@ model User {
   patientAppointments Appointment[] @relation("PatientAppointments")
 
 physioAppointments  Appointment[] @relation("PhysioAppointments")
+
+
+reviewsGiven Review[]
+
+reviewsReceived Review[] @relation("PhysioReviews")
 }
 
 model PhysioProfile {
@@ -47,4 +52,17 @@ model Appointment {
 
   physioId    Int
   physio      User     @relation("PhysioAppointments", fields: [physioId], references: [id])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId    Int
+  physioId  Int
+
+  user       User @relation(fields: [userId], references: [id])
+  physio     User @relation("PhysioReviews", fields: [physioId], references: [id])
 }

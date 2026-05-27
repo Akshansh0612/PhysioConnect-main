@@ -4,6 +4,7 @@ import {
   createPhysioProfile,
   getAllPhysios,
   getSinglePhysio,
+  searchPhysios,
 } from "../controllers/physioController.js";
 
 import { protect } from "../middleware/authMiddleware.js";
@@ -14,6 +15,7 @@ router.post("/create-profile", protect, createPhysioProfile);
 
 router.get("/all", getAllPhysios);
 
-router.get("/:id", getSinglePhysio);
+router.get("/search", searchPhysios);
 
+router.get("/:id", getSinglePhysio);
 export default router;
