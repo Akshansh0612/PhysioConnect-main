@@ -11,7 +11,8 @@ import CreateProfile from "./pages/CreateProfile";
 import MyProfile from "./pages/MyProfile";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
-
+import MyAppointments from "./pages/MyAppointments";
+import PhysioAppointments from "./pages/PhysioAppointments";
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +29,24 @@ function App() {
           <Route path="/signup" element={<Signup />} />
 
           <Route path="/physios" element={<Physios />} />
+
+          <Route
+  path="/my-appointments"
+  element={
+    <ProtectedRoute>
+      <MyAppointments />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/physio-appointments"
+  element={
+    <ProtectedRoute>
+      <PhysioAppointments />
+    </ProtectedRoute>
+  }
+/>
 
           <Route
             path="/create-profile"

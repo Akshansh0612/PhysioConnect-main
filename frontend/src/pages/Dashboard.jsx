@@ -66,6 +66,7 @@ function Dashboard() {
         You are successfully logged into PhysioConnect 🚀
       </p>
 
+      {/* PHYSIO WITHOUT PROFILE */}
       {role === "PHYSIO" && !profileExists && (
         <button
           onClick={() => navigate("/create-profile")}
@@ -75,13 +76,37 @@ function Dashboard() {
         </button>
       )}
 
-      {role === "PHYSIO" && profileExists && (
+      {/* USER */}
+      {role === "USER" && (
         <button
-          onClick={() => navigate("/my-profile")}
-          className="bg-green-500 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition duration-300 mb-6"
+          onClick={() => navigate("/my-appointments")}
+          className="mb-6 bg-cyan-400 text-black px-8 py-3 rounded-xl font-semibold hover:scale-105 transition duration-300"
         >
-          My Profile
+          My Appointments
         </button>
+      )}
+
+      {/* PHYSIO WITH PROFILE */}
+      {role === "PHYSIO" && profileExists && (
+
+        <div className="flex gap-4 mb-6">
+
+          <button
+            onClick={() => navigate("/my-profile")}
+            className="bg-green-500 text-white px-8 py-3 rounded-xl font-semibold hover:scale-105 transition duration-300"
+          >
+            My Profile
+          </button>
+
+          <button
+            onClick={() => navigate("/physio-appointments")}
+            className="bg-cyan-400 text-black px-8 py-3 rounded-xl font-semibold hover:scale-105 transition duration-300"
+          >
+            Appointments
+          </button>
+
+        </div>
+
       )}
 
       <button
