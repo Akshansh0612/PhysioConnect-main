@@ -164,3 +164,45 @@ export const searchPhysios = async (req, res) => {
     });
   }
 };
+
+// GET MY PROFILE
+export const getMyProfile = async (req, res) => {
+  try {
+
+    const profile = await prisma.physioProfile.findUnique({
+      where: {
+        userId: req.user.id,
+      },
+
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
+    });
+
+    if (!profile) {
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Profile fetched successfully",
+      profile,
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};

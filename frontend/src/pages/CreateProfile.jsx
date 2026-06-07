@@ -1,36 +1,51 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import API from "../services/api";
 
-function Signup() {
+function CreateProfile() {
 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "USER",
+    specialization: "",
+    experience: "",
+    fees: "",
+    location: "",
   });
 
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSignup = async (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
 
-      const res = await API.post("/auth/signup", formData);
+      const token = localStorage.getItem("token");
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role);
+      const res = await API.post(
+        "/physio/create-profile",
+        {
+          specialization: formData.specialization,
+          experience: Number(formData.experience),
+          fees: Number(formData.fees),
+          location: formData.location,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      alert("Signup successful");
+      alert("Profile created successfully");
 
       console.log(res.data);
 
@@ -45,61 +60,60 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-[90vh] flex justify-center items-center bg-black px-4">
+    <div className="min-h-screen bg-black flex justify-center items-center px-4">
 
-      <div className="w-full max-w-md bg-[#111] p-8 rounded-2xl shadow-2xl border border-cyan-400">
+      <div className="w-full max-w-lg bg-[#111] p-8 rounded-2xl border border-cyan-400 shadow-2xl">
 
-        <h1 className="text-4xl font-bold text-center text-cyan-400 mb-8">
-          Create Account
+        <h1 className="text-4xl font-bold text-cyan-400 text-center mb-8">
+          Create Physio Profile
         </h1>
 
         <form
-          onSubmit={handleSignup}
+          onSubmit={handleSubmit}
           className="flex flex-col gap-5"
         >
 
           <input
             type="text"
-            name="name"
-            placeholder="Enter your name"
-            value={formData.name}
+            name="specialization"
+            placeholder="Specialization"
+            value={formData.specialization}
             onChange={handleChange}
             className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
           />
 
           <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
+            type="number"
+            name="experience"
+            placeholder="Experience"
+            value={formData.experience}
             onChange={handleChange}
             className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
           />
 
           <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
+            type="number"
+            name="fees"
+            placeholder="Fees"
+            value={formData.fees}
             onChange={handleChange}
             className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
           />
 
-          <select
-            name="role"
-            value={formData.role}
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={formData.location}
             onChange={handleChange}
             className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
-          >
-            <option value="USER">User</option>
-            <option value="PHYSIO">Physio</option>
-          </select>
+          />
 
           <button
             type="submit"
             className="bg-cyan-400 text-black py-3 rounded-xl font-semibold hover:scale-105 transition duration-300"
           >
-            Signup
+            Create Profile
           </button>
 
         </form>
@@ -110,4 +124,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default CreateProfile;

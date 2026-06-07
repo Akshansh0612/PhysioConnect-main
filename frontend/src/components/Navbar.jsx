@@ -1,27 +1,64 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
+
+  const role = localStorage.getItem("role");
+
   return (
     <nav className="bg-black text-white px-8 py-4 flex justify-between items-center border-b border-gray-800">
+
       <h1 className="text-2xl font-bold text-cyan-400">
         PhysioConnect
       </h1>
 
       <div className="flex gap-6">
-        <a href="/" className="hover:text-cyan-400 transition">
+
+        <Link
+          to="/"
+          className="hover:text-cyan-400 transition"
+        >
           Home
-        </a>
+        </Link>
 
-        <a href="/physios" className="hover:text-cyan-400 transition">
+        <Link
+          to="/physios"
+          className="hover:text-cyan-400 transition"
+        >
           Physios
-        </a>
+        </Link>
 
-        <a href="/login" className="hover:text-cyan-400 transition">
+        {role === "PHYSIO" && (
+          <Link
+            to="/create-profile"
+            className="hover:text-cyan-400 transition"
+          >
+            Create Profile
+          </Link>
+        )}
+
+        <Link
+          to="/dashboard"
+          className="hover:text-cyan-400 transition"
+        >
+          Dashboard
+        </Link>
+
+        <Link
+          to="/login"
+          className="hover:text-cyan-400 transition"
+        >
           Login
-        </a>
+        </Link>
 
-        <a href="/signup" className="hover:text-cyan-400 transition">
+        <Link
+          to="/signup"
+          className="hover:text-cyan-400 transition"
+        >
           Signup
-        </a>
+        </Link>
+
       </div>
+
     </nav>
   );
 }
