@@ -52,6 +52,7 @@ export const createPhysioProfile = async (req, res) => {
 // GET ALL PHYSIOS
 export const getAllPhysios = async (req, res) => {
   try {
+
     const physios = await prisma.physioProfile.findMany({
       include: {
         user: {
@@ -60,6 +61,16 @@ export const getAllPhysios = async (req, res) => {
             name: true,
             email: true,
             role: true,
+
+            reviewsReceived: {
+              include: {
+                user: {
+                  select: {
+                    name: true,
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -69,7 +80,9 @@ export const getAllPhysios = async (req, res) => {
       message: "Physios fetched successfully",
       physios,
     });
+
   } catch (error) {
+
     console.log(error);
 
     res.status(500).json({

@@ -66,36 +66,60 @@ function MyAppointments() {
         My Appointments
       </h1>
 
-      <div className="space-y-6">
+      {appointments.length === 0 ? (
+        <p className="text-center text-gray-400 text-xl">
+          No appointments found
+        </p>
+      ) : (
+        <div className="space-y-6">
 
-        {appointments.map((appointment) => (
+          {appointments.map((appointment) => (
 
-          <div
-            key={appointment.id}
-            className="bg-[#111] border border-cyan-400 p-6 rounded-xl"
-          >
-
-            <h2 className="text-2xl text-cyan-400 font-bold">
-              {appointment.physio.name}
-            </h2>
-
-            <p>Date: {appointment.date}</p>
-            <p>Time: {appointment.time}</p>
-            <p>Status: {appointment.status}</p>
-
-            <button
-              onClick={() =>
-                cancelAppointment(appointment.id)
-              }
-              className="mt-4 bg-red-500 px-5 py-2 rounded-xl"
+            <div
+              key={appointment.id}
+              className="bg-[#111] border border-cyan-400 p-6 rounded-xl"
             >
-              Cancel Appointment
-            </button>
 
-          </div>
-        ))}
+              <h2 className="text-2xl text-cyan-400 font-bold">
+                {appointment.physio.name}
+              </h2>
 
-      </div>
+              <p>Date: {appointment.date}</p>
+
+              <p>Time: {appointment.time}</p>
+
+              <p>
+                Status:
+                <span
+                  className={`ml-2 font-bold ${
+                    appointment.status === "ACCEPTED"
+                      ? "text-green-400"
+                      : appointment.status === "REJECTED"
+                      ? "text-red-400"
+                      : "text-yellow-400"
+                  }`}
+                >
+                  {appointment.status}
+                </span>
+              </p>
+
+              {appointment.status === "PENDING" && (
+                <button
+                  onClick={() =>
+                    cancelAppointment(appointment.id)
+                  }
+                  className="mt-4 bg-red-500 hover:bg-red-600 px-5 py-2 rounded-xl transition duration-300"
+                >
+                  Cancel Appointment
+                </button>
+              )}
+
+            </div>
+
+          ))}
+
+        </div>
+      )}
 
     </div>
   );
