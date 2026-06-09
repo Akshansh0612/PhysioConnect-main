@@ -22,7 +22,7 @@ const [comment, setComment] = useState("");
 
       setPhysios(res.data.physios);
 
-     console.log(JSON.stringify(res.data, null, 2));
+     
 
     } catch (error) {
 
@@ -129,20 +129,20 @@ const resetSearch = () => {
 };
 
   return (
-    <div className="min-h-screen bg-black text-white px-8 py-10">
+    <div className="min-h-screen bg-black text-white px-4 md:px-8 py-10">
 
-      <h1 className="text-5xl font-bold text-cyan-400 mb-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-bold text-cyan-400 mb-10 text-center">
         Explore Physiotherapists
       </h1>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-10 justify-center">
+     <div className="flex flex-col lg:flex-row gap-4 mb-10 justify-center items-center">
 
   <input
     type="text"
     placeholder="Search by specialization"
     value={specialization}
     onChange={(e) => setSpecialization(e.target.value)}
-    className="bg-[#111] border border-cyan-400 px-4 py-3 rounded-xl text-white"
+    className="w-full lg:w-64 bg-[#111] border border-cyan-400 px-4 py-3 rounded-xl text-white"
   />
 
   <input
@@ -150,19 +150,19 @@ const resetSearch = () => {
     placeholder="Search by location"
     value={location}
     onChange={(e) => setLocation(e.target.value)}
-    className="bg-[#111] border border-cyan-400 px-4 py-3 rounded-xl text-white"
+    className="w-full lg:w-64 bg-[#111] border border-cyan-400 px-4 py-3 rounded-xl text-white"
   />
 
   <button
     onClick={searchPhysios}
-    className="bg-cyan-400 text-black px-6 py-3 rounded-xl font-semibold"
+    className="w-full lg:w-auto bg-cyan-400 text-black px-6 py-3 rounded-xl font-semibold"
   >
     Search
   </button>
 
   <button
     onClick={resetSearch}
-    className="bg-red-500 text-white px-6 py-3 rounded-xl font-semibold"
+    className="w-full lg:w-auto bg-red-500 text-white px-6 py-3 rounded-xl font-semibold"
   >
     Reset
   </button>
@@ -175,10 +175,10 @@ const resetSearch = () => {
 
           <div
             key={physio.id}
-            className="bg-[#111] border border-cyan-400 rounded-2xl p-6 shadow-xl hover:scale-105 transition duration-300"
+            className="bg-[#111] border border-cyan-400 rounded-2xl p-6 shadow-xl hover:scale-[1.02] transition duration-300"
           >
 
-            <h2 className="text-3xl font-bold text-cyan-400 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-cyan-400 mb-4">
               {physio.user.name}
             </h2>
 
@@ -272,7 +272,7 @@ const resetSearch = () => {
       {selectedPhysio && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center">
 
-          <div className="bg-[#111] p-8 rounded-2xl border border-cyan-400 w-full max-w-md">
+          <div className="bg-[#111] p-6 md:p-8 rounded-2xl border border-yellow-400 w-[95%] max-w-md">
 
             <h2 className="text-3xl font-bold text-cyan-400 mb-6">
               Book Appointment
@@ -292,7 +292,7 @@ const resetSearch = () => {
               className="w-full mb-6 px-4 py-3 bg-black border border-gray-700 rounded-xl"
             />
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
 
               <button
                 onClick={bookAppointment}
@@ -318,7 +318,7 @@ const resetSearch = () => {
 {reviewPhysio && (
   <div className="fixed inset-0 bg-black/70 flex justify-center items-center">
 
-    <div className="bg-[#111] p-8 rounded-2xl border border-yellow-400 w-full max-w-md">
+    <div className="bg-[#111] p-6 md:p-8 rounded-2xl border border-cyan-400 w-[95%] max-w-md">
 
       <h2 className="text-3xl font-bold text-yellow-400 mb-6">
         Add Review
@@ -341,7 +341,7 @@ const resetSearch = () => {
         className="w-full mb-6 px-4 py-3 bg-black border border-gray-700 rounded-xl"
       />
 
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
 
         <button
           onClick={submitReview}

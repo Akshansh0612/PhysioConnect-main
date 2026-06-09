@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className="min-h-[90vh] flex flex-col justify-center items-center text-white px-6">
 
-      <h1 className="text-6xl md:text-7xl font-bold text-center leading-tight">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center leading-tight">
         Connect With The Best
         <span className="text-cyan-400"> Physiotherapists</span>
       </h1>
@@ -16,7 +16,7 @@ function Home() {
         manage sessions, and recover smarter with PhysioConnect.
       </p>
 
-      <div className="flex gap-6 mt-10">
+      <div className="flex flex-col sm:flex-row gap-4 mt-10">
         <button
           onClick={() => navigate("/signup")}
           className="bg-cyan-400 text-black px-8 py-3 rounded-xl font-semibold hover:scale-105 transition duration-300"
