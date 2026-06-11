@@ -33,6 +33,7 @@ model PhysioProfile {
   experience      Int
   fees            Int
   location        String
+  phone          String?
   verified        Boolean  @default(false)
   createdAt       DateTime @default(now())
 

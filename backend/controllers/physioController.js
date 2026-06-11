@@ -3,7 +3,13 @@ import prisma from "../prisma/client.js";
 // CREATE PHYSIO PROFILE
 export const createPhysioProfile = async (req, res) => {
   try {
-    const { specialization, experience, fees, location } = req.body;
+   const {
+  specialization,
+  experience,
+  fees,
+  location,
+  phone,
+} = req.body;
 
     // Check role
     if (req.user.role !== "PHYSIO") {
@@ -32,6 +38,7 @@ export const createPhysioProfile = async (req, res) => {
         experience,
         fees,
         location,
+        phone,
         userId: req.user.id,
       },
     });

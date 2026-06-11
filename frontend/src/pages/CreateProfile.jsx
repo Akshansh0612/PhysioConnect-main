@@ -12,6 +12,7 @@ function CreateProfile() {
     experience: "",
     fees: "",
     location: "",
+    phone: "",
   });
 
   const handleChange = (e) => {
@@ -37,6 +38,7 @@ function CreateProfile() {
           experience: Number(formData.experience),
           fees: Number(formData.fees),
           location: formData.location,
+          phone: formData.phone,
         },
         {
           headers: {
@@ -105,6 +107,15 @@ function CreateProfile() {
             name="location"
             placeholder="Location"
             value={formData.location}
+            onChange={handleChange}
+            className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
+          />
+
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
             onChange={handleChange}
             className="bg-black border border-gray-700 text-white px-4 py-3 rounded-xl outline-none focus:border-cyan-400"
           />

@@ -209,6 +209,12 @@ const resetSearch = () => {
                 {" "} {physio.location}
               </span>
             </p>
+            <p className="text-gray-300 mb-6">
+  Phone:
+  <span className="text-white">
+    {" "} {physio.phone}
+  </span>
+</p>
             <div className="mb-6">
 
   <h3 className="text-yellow-400 font-bold mb-2">
