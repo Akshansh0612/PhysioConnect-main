@@ -1,6 +1,7 @@
-import express, { json } from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
 import authRoutes from "./routes/authRoutes.js";
 import { protect } from "./middleware/authMiddleware.js";
 import { authorizeRoles } from "./middleware/roleMiddleware.js";
@@ -12,14 +13,25 @@ dotenv.config();
 
 const app = express();
 
+// Middleware
 app.use(cors());
-app.use(json());
+app.use(express.json());
 
+// Debug middleware (temporary)
+app.use((req, res, next) => {
+  console.log("METHOD:", req.method);
+  console.log("URL:", req.url);
+  console.log("BODY:", req.body);
+  next();
+});
+
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/physio", physioRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/reviews", reviewRoutes);
 
+// Protected Route
 app.get("/api/protected", protect, (req, res) => {
   res.json({
     message: "Protected route accessed",
@@ -27,6 +39,7 @@ app.get("/api/protected", protect, (req, res) => {
   });
 });
 
+// Admin Route
 app.get(
   "/api/admin",
   protect,
@@ -38,12 +51,14 @@ app.get(
   }
 );
 
+// Home Route
 app.get("/", (req, res) => {
   res.send("PhysioConnect Backend Running");
 });
 
+// Start Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
